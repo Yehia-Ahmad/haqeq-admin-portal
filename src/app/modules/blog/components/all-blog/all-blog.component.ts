@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -55,7 +55,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   styleUrl: './all-blog.component.scss',
   providers: [ConfirmationService, MessageService]
 })
-export class AllBlogComponent {
+export class AllBlogComponent implements OnInit {
   @ViewChild('filter') filter!: ElementRef;
   statuses: any[] = [];
   loading: boolean = true;
