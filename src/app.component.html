@@ -1,0 +1,9 @@
+<!-- <div class="app-root-container">
+</div> -->
+@if(isAuthenticated) {
+    <app-layout>
+        <router-outlet></router-outlet>
+    </app-layout>
+} @else {
+    <router-outlet></router-outlet>
+}
