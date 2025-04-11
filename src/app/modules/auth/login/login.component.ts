@@ -19,7 +19,7 @@ export class LoginComponent {
   ngOnInit(): void {
     const access_token = this.diskService.accessToken;
     if (access_token) {
-      this.router.navigate(['all-blogs']);
+      this.router.navigate(['blogs/all-blogs']);
     }
   }
 
@@ -28,7 +28,7 @@ export class LoginComponent {
       next: (res) => {
         this.diskService.accessToken = res.items.access_token;
         this.diskService.user = res.items.item;
-        this.router.navigate(['all-blogs']);
+        this.router.navigate(['blogs/all-blogs']);
         this.authService.is_User_LoggedIn.next(true);
       },
       error: (err) => {
