@@ -7,7 +7,6 @@ export const appRoutes: Routes = [
         path: 'login',
         loadComponent: () => import('./app/modules/auth/login/login.component').then((m) => m.LoginComponent),
     },
-    
     {
         path: 'blogs/all-blogs',
         canActivate: [authGuard],
@@ -22,6 +21,21 @@ export const appRoutes: Routes = [
         path: 'blogs/add-blog/:id',
         canActivate: [authGuard],
         loadComponent: () => import('./app/modules/blog/components/add-blog/add-blog.component').then((m) => m.AddBlogComponent),
+    },
+    {
+        path: 'initiatives/all-initiatives',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/initiatives/components/all-initiatives/all-initiatives.component').then((m) => m.AllInitiativesComponent),
+    },
+    {
+        path: 'initiatives/add-initiative',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/initiatives/components/add-initiatives/add-initiatives.component').then((m) => m.AddInitiativesComponent),
+    },
+    {
+        path: 'initiatives/add-initiative/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/initiatives/components/add-initiatives/add-initiatives.component').then((m) => m.AddInitiativesComponent),
     },
     {
         path: '**',
