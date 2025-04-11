@@ -1,0 +1,95 @@
+<div class="card" dir="rtl">
+    <h1 class="text-primary font-bold mb-10">
+        @if (libInfo?.id) {
+            تحديث المكتبة
+        } @else {
+            اضافة مكتبة
+        }
+    </h1>
+    <form [formGroup]="libForm" (ngSubmit)="onSubmit()" dir="rtl">
+        <div class="flex flex-col md:flex-row gap-6 my-8">
+            <div class="flex flex-col flex-wrap gap-2 w-full">
+                <label for="title" class="font-semibold">
+                    العنوان
+                </label>
+                <input pInputText pSize="large" id="title" placeholder="ادخل عنوان المكتبة" type="text" formControlName="title" />
+            </div>
+            <div class="flex flex-col flex-wrap gap-2 w-full">
+                <label for="author" class="font-semibold">
+                    المؤلف
+                </label>
+                <input pInputText pSize="large" id="author" placeholder="ادخل اسم المؤلف" type="text" formControlName="author" />
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-6 my-8">
+            <div class="flex flex-col flex-wrap gap-2 w-full">
+                <label class="font-semibold">
+                    تاريخ النشر
+                </label>
+                <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" size="large" class="w-full" placeholder="ادخل تاريخ النشر" formControlName="publish_date" />
+            </div>
+            <div class="flex flex-col flex-wrap gap-2 w-full">
+                <label for="author" class="font-semibold">
+                    الملصق
+                </label>
+                <p-fileupload name="demo[]" (onUpload)="onUpload($event);onSVGLogo($event)" [multiple]="false" accept="image/*" maxFileSize="1000000" mode="advanced" url="https://www.primefaces.org/cdn/api/upload.php">
+                    <ng-template #empty>
+                        <div>
+                            اسحب وأفلِت الملفات إلى هنا للتحميل.
+                        </div>
+                    </ng-template>
+                    <ng-template #content>
+                        @if(uploadedFiles.length){
+                            <ul>
+                                @for(file of uploadedFiles; track $index){
+                                    <li>{{ file.name }} - {{ file.size }} bytes</li>
+                                }
+                            </ul>
+                        }
+                    </ng-template>
+                </p-fileupload>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-6 my-8">
+            <div class="flex flex-col flex-wrap gap-2 w-full">
+                <label for="author" class="font-semibold">
+                    نوع المكتبة
+                </label>
+                <p-select [options]="libTypes" formControlName="status" optionLabel="label" optionValue="value" placeholder="حدد نوع المكتبة" class="w-full" />
+            </div>
+            <div class="flex flex-col flex-wrap gap-2 w-full">
+                <label for="author" class="font-semibold">
+                    النوع
+                </label>
+                <p-select [options]="types" formControlName="type" optionLabel="label" optionValue="value" placeholder="حدد النوع" class="w-full" />
+            </div>
+        </div>
+        <div class="flex flex-col flex-wrap gap-2 w-full my-8">
+            <label class="font-semibold">
+                الوصف
+            </label>
+            <textarea class="w-full h-60 font-medium leading-8 tracking-wide" pTextarea formControlName="description" rows="4" cols="50"></textarea>
+        </div>
+        <div class="flex flex-col flex-wrap gap-2 w-full my-8">
+            <label class="font-semibold">
+                النتيجة
+            </label>
+            <textarea class="w-full h-60 font-medium leading-8 tracking-wide" pTextarea formControlName="conclusion" rows="4" cols="50"></textarea>
+        </div>
+        <div class="flex flex-col flex-wrap gap-2 w-full my-8">
+            <label class="font-semibold">
+                المحاور
+            </label>
+            <p-editor class="w-full" placeholder="ادخل المحاور" formControlName="axes"></p-editor>
+        </div>
+        @if (libInfo?.id) {
+            <div class="mt-10 w-full flex justify-end">
+                <p-button label="تحديث" icon="pi pi-fw pi-user-edit" styleClass="p-button-success" type="submit" [fluid]="false"></p-button>
+            </div>
+        } @else {
+            <div class="mt-10 w-full flex justify-end">
+                <p-button label="اضافة" icon="pi pi-plus" styleClass="p-button-success" type="submit" [fluid]="false"></p-button>
+            </div>
+        }
+    </form>
+</div>

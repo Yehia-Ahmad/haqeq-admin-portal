@@ -53,6 +53,21 @@ export const appRoutes: Routes = [
         loadComponent: () => import('./app/modules/news/components/add-news/add-news.component').then((m) => m.AddNewsComponent),
     },
     {
+        path: 'lib/all-lib',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/lib/components/all-lib/all-lib.component').then((m) => m.AllLibComponent),
+    },
+    {
+        path: 'lib/add-lib',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/lib/components/add-lib/add-lib.component').then((m) => m.AddLibComponent),
+    },
+    {
+        path: 'lib/add-lib/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/lib/components/add-lib/add-lib.component').then((m) => m.AddLibComponent),
+    },
+    {
         path: '**',
         loadComponent: () => import('./app/modules/blog/components/all-blog/all-blog.component').then((m) => m.AllBlogComponent),
     }

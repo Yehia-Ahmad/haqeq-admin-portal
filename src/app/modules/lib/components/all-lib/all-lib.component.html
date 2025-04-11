@@ -1,0 +1,139 @@
+<div class="card" dir="rtl">
+    <div class="w-full flex justify-between items-center mb-4">
+        <h1 class="flex items-center text-primary gap-2">
+            المكتبات
+            <span class="text-3xl">
+                ({{ librariesLength | arabicNumerals }})
+            </span>
+        </h1>
+    </div>
+    <div class="w-full flex flex-row justify-between items-center mb-4">
+        <div class="w-full flex flex-row justify-start items-center">
+            <input id="fileInput" #fileInput type="file" (change)="onImportFile($event)" style="display: none" />
+            <p-button label="ارسال" icon="pi pi-download" severity="secondary" (onClick)="fileInput.click()" />
+            <p-button class="ms-6" label="تصدير" icon="pi pi-upload" severity="secondary" (onClick)="onExportData()" />
+        </div>
+        <ng-container>
+            <button class="hidden" #pButton routerLink="/libraries/add-lib">Add Library</button>
+            <p-button label="اضافة مكتبة" icon="pi pi-plus" severity="secondary" class="min-w-max" (onClick)="pButton.click()" />
+        </ng-container>
+    </div>
+    <p-table
+        #dt1
+        [value]="libraries"
+        [lazy]="true"
+        (onLazyLoad)="onPageChange($event)"
+        [paginator]="true"
+        [rows]="params.count"
+        [totalRecords]="LibraryMeta.total"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [loading]="loading"
+        [first]="first"
+        [alwaysShowPaginator]="true"
+    >
+        <ng-template #caption>
+            <div class="flex justify-between items-center flex-column sm:flex-row w-full" dir="ltr">
+                <button pButton label="حذف الكل" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                <p-iconfield iconPosition="left" class="ml-auto" dir="rtl">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" (input)="onGlobalFilter(dt1, $event)" placeholder="ابحث بالاسم" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th class="text-center" style="min-width: 12rem">
+                    <div class="flex justify-between items-center">
+                        الفهرس
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 12rem">
+                    <div class="flex justify-between items-center">
+                        الملصق
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 14rem">
+                    <div class="flex justify-between items-center">
+                        العنوان
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 10rem">
+                    <div class="flex justify-between items-center">
+                        الوصف
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 10rem">
+                    <div class="flex justify-between items-center">
+                        المؤلف
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 10rem">
+                    <div class="flex justify-between items-center">
+                        نوع المكتبة
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 12rem">
+                    <div class="flex justify-between items-center">
+                        تاريخ النشر
+                    </div>
+                </th>
+                <th class="text-center" style="min-width: 12rem">
+                    <div class="flex justify-between items-center">
+                        العمليات
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-library>
+            <tr>
+                <td>
+                    {{ library.id }}
+                </td>
+                <td>
+                    <div class="flex items-center justify-center w-full">
+                        <img [src]="library.image_path" width="70" />
+                    </div>
+                </td>
+                <td>
+                    {{ library.title }}
+                </td>
+                <td class="text-right font-medium leading-7 tracking-normal">
+                    {{ library.description | truncate: 150 }}
+                </td>
+                <td>
+                    {{ library.author }}
+                </td>
+                <td>
+                    {{ library.lib_type }}
+                </td>
+                <td>
+                    {{ library.created_at | date: 'mediumDate' | dateToArabic }}
+                </td>
+                <td>
+                    <div class="flex items-center justify-start gap-3">
+                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editLibrary(library)"/>
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteLibrary(library)"/>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="8">
+                    لا يوجد مكتبات
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #loadingbody>
+            <tr>
+                <td colspan="8">
+                    يتم تحميل المكتبات برجاء الانتظار ......
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-confirmdialog [style]="{ width: '35vw', direction: 'rtl' }" />
