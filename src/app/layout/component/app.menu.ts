@@ -36,6 +36,11 @@ export class AppMenu {
                         icon: 'pi pi-fw pi-home',
                         routerLink: ['initiatives/all-initiatives']
                     },
+                    {
+                        label: 'الاخبار',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['news/all-news']
+                    },
                 ],
                 routerLink: ['/']
             }

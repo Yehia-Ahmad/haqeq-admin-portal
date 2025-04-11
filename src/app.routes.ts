@@ -38,8 +38,23 @@ export const appRoutes: Routes = [
         loadComponent: () => import('./app/modules/initiatives/components/add-initiatives/add-initiatives.component').then((m) => m.AddInitiativesComponent),
     },
     {
+        path: 'news/all-news',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/news/components/all-news/all-news.component').then((m) => m.AllNewsComponent),
+    },
+    {
+        path: 'news/add-news',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/news/components/add-news/add-news.component').then((m) => m.AddNewsComponent),
+    },
+    {
+        path: 'news/add-news/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./app/modules/news/components/add-news/add-news.component').then((m) => m.AddNewsComponent),
+    },
+    {
         path: '**',
-        loadComponent: () => import('./app/modules/auth/login/login.component').then((m) => m.LoginComponent),
+        loadComponent: () => import('./app/modules/blog/components/all-blog/all-blog.component').then((m) => m.AllBlogComponent),
     }
 ];
 
