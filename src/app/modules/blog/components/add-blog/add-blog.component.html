@@ -34,7 +34,9 @@
                 </label>
                 <p-fileupload name="demo[]" (onUpload)="onUpload($event);onSVGLogo($event)" [multiple]="false" accept="image/*" maxFileSize="1000000" mode="advanced" url="https://www.primefaces.org/cdn/api/upload.php">
                     <ng-template #empty>
-                        <div>Drag and drop files to here to upload.</div>
+                        <div>
+                            اسحب وأفلِت الملفات إلى هنا للتحميل.
+                        </div>
                     </ng-template>
                     <ng-template #content>
                         @if(uploadedFiles.length){
